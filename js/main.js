@@ -385,28 +385,63 @@
 
 // burgerBtn.addEventListener('click', showBurger)
 
-const currentDay = document.querySelector('.current-day')
-const funFact = document.querySelector('.fun-fact')
+// const currentDay = document.querySelector('.current-day')
+// const funFact = document.querySelector('.fun-fact')
 
-const facts = [
-	'Krokodyl nie potrafi wystawić języka.',
-	'Każdy człowiek spędził około pół godziny jako pojedyncza komórka.',
-	'Dźwięk przemieszcza się 15 razy szybciej przez stal niż przez powietrze.',
-	'Leniwce potrzebują dwóch tygodni na strawienie jedzenia.',
-	'Goryle śpią nawet czternaście godzin dziennie.',
-	'Język kameleona jest dwukrotnie dłuższy od jego ciała.',
-	'Chińczycy w ciągu roku zużywają około 80 miliardów pałeczek.',
-	'Żeby wejść na Wieżę Eiffla trzeba pokonać aż 1710 stopni.',
-]
+// const facts = [
+// 	'Krokodyl nie potrafi wystawić języka.',
+// 	'Każdy człowiek spędził około pół godziny jako pojedyncza komórka.',
+// 	'Dźwięk przemieszcza się 15 razy szybciej przez stal niż przez powietrze.',
+// 	'Leniwce potrzebują dwóch tygodni na strawienie jedzenia.',
+// 	'Goryle śpią nawet czternaście godzin dziennie.',
+// 	'Język kameleona jest dwukrotnie dłuższy od jego ciała.',
+// 	'Chińczycy w ciągu roku zużywają około 80 miliardów pałeczek.',
+// 	'Żeby wejść na Wieżę Eiffla trzeba pokonać aż 1710 stopni.',
+// ]
 
-const day = new Date()
+// const day = new Date()
 
-currentDay.textContent = day.toLocaleString('pl', { weekday: 'long' })
+// currentDay.textContent = day.toLocaleString('pl', { weekday: 'long' })
 
-const showRandomFact = () => {
-	const number = Math.floor(Math.random() * (facts.length - 1))
+// const showRandomFact = () => {
+// 	const number = Math.floor(Math.random() * (facts.length - 1))
 
-    funFact.textContent = facts[number]
+//     funFact.textContent = facts[number]
+// }
+
+// showRandomFact()
+
+let todoInput
+let errorInfo
+let addBtn
+let ulList
+let newTodo
+
+const main = () => {
+	prepareDOMElements()
+	prepareDOMEvents()
+}
+const prepareDOMElements = () => {
+	todoInput = document.querySelector('.todo-input')
+	errorInfo = document.querySelector('.error-info')
+	addBtn = document.querySelector('.btn-add')
+	ulList = document.querySelector('.todolist ul')
+}
+const prepareDOMEvents = () => {
+	addBtn.addEventListener('click', addNewTodo)
 }
 
-showRandomFact()
+const addNewTodo = () => {
+	if (todoInput.value !== '') {
+		newTodo = document.createElement('li')
+		newTodo.textContent = todoInput.value
+		ulList.append(newTodo)
+
+		todoInput.value = ''
+		errorInfo.textContent = ''
+	} else {
+		errorInfo.textContent = 'Wpisz treść zadania!'
+	}
+}
+
+document.addEventListener('DOMContentLoaded', main)
