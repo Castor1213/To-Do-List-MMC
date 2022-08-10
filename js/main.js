@@ -416,6 +416,13 @@ let errorInfo
 let addBtn
 let ulList
 let newTodo
+let popup
+let popupInfo
+let todoToEdit
+let popupInput
+let popupAddBtn
+let popupCloseBtn
+
 
 const main = () => {
 	prepareDOMElements()
@@ -426,15 +433,24 @@ const prepareDOMElements = () => {
 	errorInfo = document.querySelector('.error-info')
 	addBtn = document.querySelector('.btn-add')
 	ulList = document.querySelector('.todolist ul')
+
+	popup = document.querySelector('.popup')
+	popupInfo = document.querySelector('.popup-info')
+	popupInput = document.querySelector('.popupInput')
+	popupAddBtn = document.querySelector('.accept')
+	popupCloseBtn = document.querySelector('.cancel')
 }
 const prepareDOMEvents = () => {
 	addBtn.addEventListener('click', addNewTodo)
+	ulList.addEventListener('click', checkClick)
+	popupCloseBtn.addEventListener('click', closePopup)
 }
 
 const addNewTodo = () => {
 	if (todoInput.value !== '') {
 		newTodo = document.createElement('li')
 		newTodo.textContent = todoInput.value
+		createToolsArea()
 		ulList.append(newTodo)
 
 		todoInput.value = ''
@@ -444,4 +460,43 @@ const addNewTodo = () => {
 	}
 }
 
+const createToolsArea = () => {
+	const toolsPanel = document.createElement('div')
+	toolsPanel.classList.add('tools')
+	newTodo.append(toolsPanel)
+
+	const completeBtn = document.createElement('button')
+	completeBtn.classList.add('complete')
+	completeBtn.innerHTML = "<i class='fas fa-check'></i>"
+
+	const deleteBtn = document.createElement('button')
+	deleteBtn.classList.add('delete')
+	deleteBtn.innerHTML = "<i class='fas fa-times'></i>"
+
+	const editBtn = document.createElement('button')
+	editBtn.classList.add('edit')
+	editBtn.textContent = 'EDIT'
+
+	toolsPanel.append(completeBtn, editBtn, deleteBtn)
+}
+
+const checkClick = e => {
+	if (e.target.matches('.complete')) {
+		e.target.closest('li').classList.toggle('completed')
+		e.target.classList.toggle('completed')
+	} else if (e.target.matches('.edit')) {
+		editToDo()
+		
+	} else if (e.target.matches('.delete')) {
+		console.log('delete')
+	}
+}
+
+const editToDo = () => {
+	popup.style.display = 'flex'
+}
+
+const closePopup = () => {
+	popup.style.display = 'none'
+}
 document.addEventListener('DOMContentLoaded', main)

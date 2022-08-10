@@ -188,6 +188,8 @@ h1 {
       flex-wrap: wrap;
   width: 90%;
   padding: 10px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .popup-input {
